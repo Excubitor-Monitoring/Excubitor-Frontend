@@ -1,5 +1,6 @@
 <script>
-    import Login from "./Login.svelte";
+    import Loader from './Loader/Loader.svelte'
 </script>
 
-<Login/>
+<Loader/>
+
