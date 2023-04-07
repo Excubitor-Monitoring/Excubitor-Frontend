@@ -25,7 +25,7 @@
 
     .login-container {
         @apply flex justify-center items-center;
-        @apply h-screen;
+        @apply min-h-screen;
     }
 
     .login-box{
