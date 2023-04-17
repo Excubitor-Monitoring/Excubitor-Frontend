@@ -1,17 +1,12 @@
 <script>
+    import { host_config } from "/src/stores";
 	import SidebarItem from "./SidebarItem/SidebarItem.svelte";
 </script>
 
 <div class="sidebar">
-    <SidebarItem/>
-    <SidebarItem/>
-    <SidebarItem/>
-    <SidebarItem/>
-    <SidebarItem/>
-    <SidebarItem/>
-    <SidebarItem/>
-    <SidebarItem/>
-    <SidebarItem/>
+    {#each $host_config.plugins as plugin}
+        <SidebarItem name={plugin.name}/>
+    {/each}
 </div>
 
 <style type="postcss">

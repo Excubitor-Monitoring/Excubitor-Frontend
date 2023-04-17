@@ -1,9 +1,22 @@
+<script>
+	import { goto } from "$app/navigation";
+    import { host, host_config } from "/src/stores";
+    let hostVal;
+
+    function submit(){
+        host.set(hostVal);
+        fetch(`http://${hostVal}:8000/info`).then(res => res.json().then(json => host_config.set(json)));
+        console.log($host_config);
+        goto(`/${$host_config.plugins[0]?.name}`);
+    }
+</script>
+
 <div class="login-container">
     <div class="login-box">
         <h1>Login to Excubitor</h1>
         <div class="w-full">
             <label for="host">Host</label>
-            <input type="text" placeholder="localhost" id="host">
+            <input type="text" placeholder="localhost" id="host" bind:value={hostVal}>
         </div>
         <div class="w-full">
             <label for="username">Username</label>
@@ -13,19 +26,16 @@
             <label for="password">Password</label>
             <input type="password" placeholder="Password" id="password">
         </div>        
-        <button>Login</button>
+        <button on:click={submit}>Login</button>
     </div>
 </div>
 
 <style type="postcss">
-    :global(body) {
-        background-image: url(./background.jpg);
-        background-size: cover;
-    }
-
     .login-container {
         @apply flex justify-center items-center;
         @apply min-h-screen;
+        background-image: url(./background.jpg);
+        background-size: cover;
     }
 
     .login-box{

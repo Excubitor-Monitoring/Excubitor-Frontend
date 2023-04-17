@@ -1,6 +1,8 @@
 <script>
-    import Loader from './Loader/Loader.svelte'
+	import { onMount } from "svelte";
+	import { goto } from "$app/navigation";
+
+	onMount(() => {
+		goto("/Login");
+	});
 </script>
-
-<Loader/>
-
