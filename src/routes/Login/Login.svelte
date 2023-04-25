@@ -5,9 +5,11 @@
 
     function submit(){
         host.set(hostVal);
-        fetch(`http://${hostVal}:8000/info`).then(res => res.json().then(json => host_config.set(json)));
+        fetch(`http://${hostVal}:8000/info`)
+            .then(res => res.json()
+            .then(json => host_config.set(json)))
+            .then(() => goto(`/${$host_config?.plugins[0]?.name}`));
         console.log($host_config);
-        goto(`/${$host_config.plugins[0]?.name}`);
     }
 </script>
 

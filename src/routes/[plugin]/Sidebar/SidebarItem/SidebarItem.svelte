@@ -1,5 +1,11 @@
-<div class="sidebarItem">
-    MODUL
+<script>
+	import { goto } from "$app/navigation";
+
+    export let name = "MODUL"; 
+</script>
+
+<div class="sidebarItem" on:click={() => goto(`/${name}`)}>
+    {name}
 </div>
 
 <style type="postcss">
