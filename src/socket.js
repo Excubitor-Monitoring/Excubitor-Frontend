@@ -1,4 +1,5 @@
 let socket;
+let sublist = [];
 
 export function connectSocket(url){
     socket = new WebSocket(url);
@@ -8,12 +9,39 @@ export function connectSocket(url){
         const event = new CustomEvent(data.target, {
             detail: JSON.parse(data.value)
         })
-        document.dispatchEvent(event);
+        window.dispatchEvent(event);
     });
 
-    document.addEventListener("SEND2SOCKET", (event) => {
-        socket.send(event.detail);
+    window.addEventListener("SUB2SOCKET", (event) => {
+        socket.send(JSON.stringify({
+            op: "SUB",
+            target: event.detail,
+            value: ""
+        }));
+
+        sublist.push(event.detail);
     })
+
+    window.addEventListener("UNSUB2SOCKET", (event) => {
+        socket.send(JSON.stringify({
+            op: "UNSUB",
+            target: event.detail,
+            value: ""
+        }));
+    })
+
+
+}
+
+export function unsubAll(){
+    sublist.forEach(element => {
+        socket.send(JSON.stringify({
+            op: "UNSUB",
+            target: element,
+            value: ""
+        }));
+    });
+    sublist = [];
 }
 
 export function logSocket(){

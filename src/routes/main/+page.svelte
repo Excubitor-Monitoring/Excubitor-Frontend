@@ -11,18 +11,6 @@
 				import(`http://${$host}:8000/${module.url}`)
 			});
 
-			// document.addEventListener("CPU.CpuInfo", (event) => {
-			// 	console.log(event.detail);
-			// })
-
-			// document.dispatchEvent((new CustomEvent("SEND2SOCKET", {
-			// 	detail: JSON.stringify({
-			// 		op: "SUB",
-			// 		target: "CPU.CpuInfo",
-			// 		value: ""
-			// 	})
-			// })))
-
 		}
 	});
 	

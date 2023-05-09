@@ -1,10 +1,14 @@
 <script>
 	import { goto } from "$app/navigation";
+	import { unsubAll } from "../../../../socket";
 	import { current_plugin } from "../../../../stores";
 
     export let module = "MODUL"; 
 
     function click(){
+
+        unsubAll();
+
         current_plugin.set(module);
     }
 </script>
