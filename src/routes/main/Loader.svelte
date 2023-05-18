@@ -3,13 +3,19 @@
 	import { page } from "$app/stores";
 	import Sidebar from "./Sidebar/Sidebar.svelte";
 	import { host_config, current_plugin } from "/src/stores";
+
+	let component_container;
+
+	$:{
+		const child = document.createElement($current_plugin.tag);
+		if(component_container) component_container.innerHTML = '';
+		component_container?.appendChild(child);
+	}
 </script>
 
 <div class="container">
 	<Sidebar/>
-    <div>
-		<svelte:element this={$current_plugin.tag}></svelte:element>
-	</div>
+    <div bind:this={component_container} />
 </div>
 
 <style type="postcss">
