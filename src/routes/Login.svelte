@@ -3,9 +3,12 @@
 	import { current_plugin } from "../stores";
     import { host, host_config, access_token, refresh_token } from "/src/stores";
     import {connectSocket} from '/src/socket.js'
-    let hostVal = "excubitor.mi.hdm-stuttgart.de";
-    let username = "test";
-    let password = "123456";
+
+    import { PUBLIC_HOSTVAL, PUBLIC_USERNAME, PUBLIC_PASSWORD } from '$env/static/public';
+
+    let hostVal = PUBLIC_HOSTVAL;
+    let username = PUBLIC_USERNAME;
+    let password = PUBLIC_PASSWORD;
 
     async function submit(){
 
