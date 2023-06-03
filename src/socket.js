@@ -30,6 +30,13 @@ export function connectSocket(url){
         }));
     })
 
+    window.addEventListener("HIST2SOCKET", (event) => {
+        socket.send(JSON.stringify({
+            op: "HIST",
+            target: event.detail.target,
+            value: event.detail.value
+        }));
+    })
 
 }
 
