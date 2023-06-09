@@ -33,7 +33,7 @@
             .then(res => res.json()
             .then(json => host_config.set(json)))
             .then(() => console.log($host_config))
-            .then(() => current_plugin.set($host_config.modules[0]))
+            .then(() => current_plugin.set($host_config.modules[0].components[0]))
             .then(() => connectSocket(`ws://${hostVal}:8080/ws?token=${auth.access_token}`))
             .then(() => goto(`/main`));
     }
@@ -82,6 +82,10 @@
 
     button{
         @apply w-full bg-indigo-600 rounded-lg px-4 py-2 text-lg text-white;
+    }
+
+    button:hover{
+        @apply bg-indigo-900;
     }
 
 
