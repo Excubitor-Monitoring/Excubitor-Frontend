@@ -10,7 +10,9 @@
 		if(!$host) goto("/Login");
 		else{
 			$host_config.modules.forEach(module => {
-				import(`http://${$host}:8000/${module.js}`)
+				module.components.forEach(component => {
+					import(`http://${$host}:8000/${component.js}`)
+				})
 			});
 
 		}
