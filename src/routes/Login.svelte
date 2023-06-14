@@ -14,7 +14,7 @@
 
         host.set(hostVal);
 
-        let auth = await fetch(`http://${hostVal}:8080/auth`, {
+        let auth = await fetch(`http://${hostVal}/auth`, {
             method: "POST",
             body: JSON.stringify({
                 method: "PAM",
@@ -29,12 +29,12 @@
         access_token.set(auth.access_token);
         refresh_token.set(auth.refresh_token);
 
-        fetch(`http://${hostVal}:8000/info`)
+        fetch(`http://${hostVal}/info`)
             .then(res => res.json()
             .then(json => host_config.set(json)))
             .then(() => console.log($host_config))
-            .then(() => current_plugin.set($host_config.modules[0].components[0]))
-            .then(() => connectSocket(`ws://${hostVal}:8080/ws?token=${auth.access_token}`))
+            .then(() => current_plugin.set($host_config.modules[1].components[0]))
+            .then(() => connectSocket(`ws://${hostVal}/ws?token=${auth.access_token}`))
             .then(() => goto(`/main`));
     }
 </script>

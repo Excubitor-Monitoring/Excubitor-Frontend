@@ -7,7 +7,7 @@
 
 <div class="w-full">
     <div class="category" on:click={() => expanded = !expanded}>
-        <h2>{module.mod_name}</h2>
+        <h2>{module.name}</h2>
     </div>
 	<div class="pl-3">
 		{#if expanded}
