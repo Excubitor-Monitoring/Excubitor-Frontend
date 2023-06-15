@@ -30,10 +30,13 @@
         refresh_token.set(auth.refresh_token);
 
         fetch(`http://${hostVal}/info`)
-            .then(res => res.json()
-            .then(json => host_config.set(json)))
+            .then(res => res.json())
+            .then(h_config => {
+                h_config.modules.shift()
+                host_config.set(h_config)
+            })
             .then(() => console.log($host_config))
-            .then(() => current_plugin.set($host_config.modules[1].components[0]))
+            .then(() => current_plugin.set($host_config.modules[0].components[0]))
             .then(() => connectSocket(`ws://${hostVal}/ws?token=${auth.access_token}`))
             .then(() => goto(`/main`));
     }

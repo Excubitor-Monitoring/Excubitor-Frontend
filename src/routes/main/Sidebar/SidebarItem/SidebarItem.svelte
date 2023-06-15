@@ -7,9 +7,11 @@
 
     function click(){
 
-        unsubAll();
-
-        current_plugin.set(component);
+        if($current_plugin != component){
+            unsubAll();
+            current_plugin.set(component);
+        }
+        
     }
 </script>
 
