@@ -4,11 +4,13 @@
     import { host, host_config, access_token, refresh_token } from "/src/stores";
     import {connectSocket} from '/src/socket.js'
 
-    import { PUBLIC_HOSTVAL, PUBLIC_USERNAME, PUBLIC_PASSWORD } from '$env/static/public';
+    import { dev } from '$app/environment';
 
-    let hostVal = PUBLIC_HOSTVAL;
-    let username = PUBLIC_USERNAME;
-    let password = PUBLIC_PASSWORD;
+    import { env } from '$env/dynamic/public';
+
+    let hostVal = env.PUBLIC_HOSTVAL == undefined ? "" : env.PUBLIC_HOSTVAL;
+    let username = env.PUBLIC_USERNAME == undefined ? "" : env.PUBLIC_USERNAME;
+    let password = env.PUBLIC_PASSWORD == undefined ? "" : env.PUBLIC_PASSWORD;
 
     async function submit(){
 
@@ -25,21 +27,29 @@
             })
         })
 
-        auth = await auth.json();
-        access_token.set(auth.access_token);
-        refresh_token.set(auth.refresh_token);
+        if(auth.status == 200){
+            const json = await auth.json();
 
-        fetch(`http://${hostVal}/info`)
-            .then(res => res.json())
-            .then(h_config => {
-                h_config.modules.shift()
-                host_config.set(h_config)
-            })
-            .then(() => console.log($host_config))
-            .then(() => current_plugin.set($host_config.modules[0].components[0]))
-            .then(() => connectSocket(`ws://${hostVal}/ws?token=${auth.access_token}`))
-            .then(() => goto(`/main`));
-    }
+            access_token.set(json.access_token);
+            refresh_token.set(json.refresh_token);
+
+            fetch(`http://${hostVal}/info`)
+                .then(res => res.json())
+                .then(h_config => {
+                    h_config.modules.shift()
+                    host_config.set(h_config)
+                })
+                .then(() => console.log($host_config))
+                .then(() => current_plugin.set($host_config.modules[0].components[0]))
+                .then(() => connectSocket(`ws://${hostVal}/ws?token=${json.access_token}`))
+                .then(() => goto(`/main`));
+            }
+
+        }
+
+        
+
+        
 </script>
 
 <div class="login-container">

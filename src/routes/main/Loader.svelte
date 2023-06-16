@@ -16,12 +16,12 @@
 
 <div class="container">
 	<Sidebar/>
-    <div class="w-full min-h-full" bind:this={component_container} />
+    <div class="w-full h-full overflow-y-auto" bind:this={component_container} />
 </div>
 
 <style type="postcss">
 	.container {
 		@apply flex;
-		@apply min-h-screen min-w-full;
+		@apply h-screen min-w-full;
 	}
 </style>
