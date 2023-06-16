@@ -36,10 +36,9 @@
             fetch(`http://${hostVal}/info`)
                 .then(res => res.json())
                 .then(h_config => {
-                    h_config.modules.shift()
+                    h_config.modules = h_config.modules.filter(module => module.components.length > 0)
                     host_config.set(h_config)
                 })
-                .then(() => console.log($host_config))
                 .then(() => current_plugin.set($host_config.modules[0].components[0]))
                 .then(() => connectSocket(`ws://${hostVal}/ws?token=${json.access_token}`))
                 .then(() => goto(`/main`));
