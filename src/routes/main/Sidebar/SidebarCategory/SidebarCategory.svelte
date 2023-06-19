@@ -9,7 +9,7 @@
     <div class="category" on:click={() => expanded = !expanded}>
         <h2>{module.name}</h2>
     </div>
-	<div class="pl-3">
+	<div class="">
 		{#if expanded}
 			{#each module.components as component}
 				<SidebarItem {component} />
@@ -23,7 +23,7 @@
     .category{
         @apply flex items-center;
         @apply w-full h-12 px-3 mt-2 rounded;
-        @apply bg-slate-700;
+        @apply bg-cyan-700;
     }
 
     .category:hover{
