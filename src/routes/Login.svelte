@@ -36,7 +36,7 @@
             fetch(`http://${hostVal}/info`)
                 .then(res => res.json())
                 .then(h_config => {
-                    h_config.modules = h_config.modules.filter(module => module.components.length > 0)
+                    h_config.modules = h_config.modules.filter(module => module.components?.length > 0)
                     host_config.set(h_config)
                 })
                 .then(() => current_plugin.set($host_config.modules[0].components[0]))

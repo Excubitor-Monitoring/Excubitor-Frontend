@@ -38,6 +38,14 @@ export function connectSocket(url){
         }));
     })
 
+    window.addEventListener("GET2SOCKET", (event) => {
+        socket.send(JSON.stringify({
+            op: "GET",
+            target: event.detail,
+            value: ""
+        }));
+    })
+
 }
 
 export function unsubAll(){
