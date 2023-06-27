@@ -21,7 +21,7 @@
 <style type="postcss">
 
     .category{
-        @apply flex items-center;
+        @apply flex items-center cursor-pointer select-none;
         @apply w-full h-12 px-3 mt-2 rounded;
         @apply bg-cyan-600;
     }
