@@ -35,7 +35,8 @@
 			fetch(`http://${hostVal}/info`)
 				.then((res) => res.json())
 				.then((h_config) => {
-					h_config.modules = h_config.modules.filter((module) => module.components?.length > 0);
+					console.log(h_config);
+					h_config.modules = h_config.modules.filter((module) => module.components?.length > 0).sort((a, b) => a.name > b.name );
 					host_config.set(h_config);
 				})
 				.then(() => current_plugin.set($host_config.modules[0].components[0]))
