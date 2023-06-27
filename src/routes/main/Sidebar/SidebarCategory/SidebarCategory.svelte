@@ -23,11 +23,11 @@
     .category{
         @apply flex items-center cursor-pointer select-none;
         @apply w-full h-12 px-3 mt-2 rounded;
-        @apply bg-cyan-600;
+        @apply bg-teal-600;
     }
 
     .category:hover{
-        @apply bg-cyan-700;
+        @apply bg-teal-700;
     }
 
 </style>
