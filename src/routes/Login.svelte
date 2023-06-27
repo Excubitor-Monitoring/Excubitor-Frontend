@@ -89,10 +89,10 @@
 	}
 
 	button {
-		@apply w-full bg-indigo-600 rounded-lg px-4 py-2 text-lg text-white;
+		@apply w-full bg-cyan-600 rounded-lg px-4 py-2 text-lg text-white;
 	}
 
 	button:hover {
-		@apply bg-indigo-900;
+		@apply bg-cyan-700;
 	}
 </style>

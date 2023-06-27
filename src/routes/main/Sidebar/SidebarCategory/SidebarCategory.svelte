@@ -7,7 +7,7 @@
 
 <div class="w-full">
     <div class="category" on:click={() => expanded = !expanded}>
-        <h2>{module.name}</h2>
+        <div class="flex justify-between w-full"> <div><h2>{module.name}</h2></div> <div>ᐯ</div> </div>
     </div>
 	<div class="">
 		{#if expanded}
@@ -23,11 +23,11 @@
     .category{
         @apply flex items-center;
         @apply w-full h-12 px-3 mt-2 rounded;
-        @apply bg-cyan-700;
+        @apply bg-cyan-600;
     }
 
     .category:hover{
-        @apply bg-gray-700 text-gray-300;
+        @apply bg-cyan-700;
     }
 
 </style>

@@ -15,6 +15,6 @@
 <style type="postcss">
     .sidebar {
         @apply flex flex-col items-center;
-        @apply min-w-[15%] min-h-full overflow-hidden text-white bg-gray-900 p-2;
+        @apply min-w-[15%] min-h-full overflow-y-auto text-white bg-gray-900 p-2;
     }
 </style>
