@@ -21,12 +21,12 @@
 
 <style type="postcss">
     .sidebarItem{
-        @apply flex items-center;
+        @apply flex items-center cursor-pointer select-none;
         @apply w-full h-12 px-3 mt-2 rounded;
-        @apply bg-slate-800;
+        @apply bg-cyan-600;
     }
 
     .sidebarItem:hover{
-        @apply bg-gray-700 text-gray-300;
+        @apply bg-cyan-700;
     }
 </style>

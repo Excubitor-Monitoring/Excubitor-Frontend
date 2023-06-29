@@ -7,9 +7,9 @@
 
 <div class="w-full">
     <div class="category" on:click={() => expanded = !expanded}>
-        <h2>{module.name}</h2>
+        <div class="flex justify-between w-full"> <div><h2>{module.name}</h2></div> <div>ᐯ</div> </div>
     </div>
-	<div class="pl-3">
+	<div class="">
 		{#if expanded}
 			{#each module.components as component}
 				<SidebarItem {component} />
@@ -21,13 +21,13 @@
 <style type="postcss">
 
     .category{
-        @apply flex items-center;
+        @apply flex items-center cursor-pointer select-none;
         @apply w-full h-12 px-3 mt-2 rounded;
-        @apply bg-slate-700;
+        @apply bg-teal-600;
     }
 
     .category:hover{
-        @apply bg-gray-700 text-gray-300;
+        @apply bg-teal-700;
     }
 
 </style>

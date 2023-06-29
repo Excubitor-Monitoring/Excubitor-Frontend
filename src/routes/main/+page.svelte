@@ -11,7 +11,7 @@
 		else{
 			$host_config.modules.forEach(module => {
 				module.components.forEach(component => {
-					import(`http://${$host}/${component.js}`)
+					import(`${$host}/${component.js}`)
 				})
 			});
 
