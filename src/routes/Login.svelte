@@ -16,7 +16,7 @@
 	async function submit() {
 
 		if(ssl) host.set(`https://${hostVal}`)
-		else if(ssl) host.set(`http://${hostVal}`)
+		else host.set(`http://${hostVal}`)
 
 		let auth = await fetch(`${$host}/auth`, {
 			method: 'POST',
