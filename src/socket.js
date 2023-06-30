@@ -1,7 +1,11 @@
-let socket;
+let socket = null;
 let sublist = [];
 
 export function connectSocket(url){
+    if(socket != null) {
+        socket.close();
+        socket = null;
+    }
     socket = new WebSocket(url);
     socket.addEventListener("message", (socketEvent) => {
 
