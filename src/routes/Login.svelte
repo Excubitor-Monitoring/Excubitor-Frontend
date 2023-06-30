@@ -9,7 +9,7 @@
 	import { env } from '$env/dynamic/public';
 
 	let hostVal = env.PUBLIC_HOSTVAL == undefined ? '' : env.PUBLIC_HOSTVAL;
-	let ssl;
+	let ssl = true;
 	let username = env.PUBLIC_USERNAME == undefined ? '' : env.PUBLIC_USERNAME;
 	let password = env.PUBLIC_PASSWORD == undefined ? '' : env.PUBLIC_PASSWORD;
 
