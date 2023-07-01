@@ -70,7 +70,7 @@
 			<div class="w-full">
 				<label for="host">Host</label>
 				<input type="text" placeholder="localhost" id="host" bind:value={hostVal} />
-				<div class="flex justify-between w-full"> <label>HTTPS</label> <input type="checkbox" class=" max-w-min" bind:checked={ssl}> </div>
+				<div class="flex justify-between w-full"> <label for="ssl">HTTPS</label> <input id="ssl" type="checkbox" class=" max-w-min" bind:checked={ssl}> </div>
 			</div>
 			<div class="w-full">
 				<label for="username">Username</label>
