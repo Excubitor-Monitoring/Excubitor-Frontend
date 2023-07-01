@@ -3,7 +3,7 @@
     export let message
 </script>
 
-<div class="error">
+<div class="error" on:click={event => {event.currentTarget.remove()}}>
     <div class="time" on:animationend={event => {
                 event.currentTarget.parentNode.remove()
             }}></div>
