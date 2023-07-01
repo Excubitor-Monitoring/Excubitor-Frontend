@@ -4,10 +4,8 @@
 	import { host, host_config, access_token, refresh_token } from '/src/stores';
 	import { connectSocket } from '/src/socket.js';
 
-	import { dev } from '$app/environment';
-
 	import { env } from '$env/dynamic/public';
-	import Error from "./Error/Error.svelte";
+	import Error from "./Error/ErrorContainer.svelte";
 
 	let hostVal = env.PUBLIC_HOSTVAL === undefined ? '' : env.PUBLIC_HOSTVAL;
 	let ssl = true;
@@ -19,7 +17,10 @@
 		if(ssl) host.set(`https://${hostVal}`)
 		else host.set(`http://${hostVal}`)
 
-		let auth = await fetch(`${$host}/auth`, {
+		const authURL = new URL($host)
+		authURL.pathname = "auth"
+
+		let auth = await fetch(authURL, {
 			method: 'POST',
 			body: JSON.stringify({
 				method: 'PAM',
@@ -28,6 +29,15 @@
 					password: password
 				}
 			})
+		}).catch(err => {
+			const event = new CustomEvent("ERR", {
+				detail: {
+					title: "Error on requesting authentication:",
+					message: err
+				}
+			})
+
+			window.dispatchEvent(event)
 		});
 
 		if (auth.status === 200) {
@@ -45,16 +55,34 @@
 				})
 				.then(() => current_plugin.set($host_config.modules[0].components[0]))
 				.then(() => {
-					if(ssl) connectSocket(`wss://${hostVal}/ws?token=${json.access_token}`)
-					else connectSocket(`ws://${hostVal}/ws?token=${json.access_token}`)
+					const url = new URL("ws://localhost");
+					url.host = hostVal;
+					url.pathname = "ws";
+					url.searchParams.set("token", json.access_token);
+					ssl ? url.protocol = "wss" : url.protocol = "ws";
+
+					connectSocket(url)
 				})
-				.then(() => goto(`/main`));
+				.then(() => goto(`/main`))
+				.catch(err => {
+					const event = new CustomEvent("ERR", {
+						detail: {
+							title: "Error on fetching info:",
+							message: err
+						}
+					})
+
+					window.dispatchEvent(event)
+				});
 		} else {
 			const error = await auth.json();
 
 			if (error?.message) {
 				const event = new CustomEvent("ERR", {
-					detail: error.message
+					detail: {
+						title: "Error on authentication:",
+						message: error.message
+					}
 				})
 
 				window.dispatchEvent(event)
@@ -80,7 +108,7 @@
 				<label for="password">Password</label>
 				<input type="password" placeholder="Password" id="password" bind:value={password} />
 			</div>
-			<button on:click={submit}>Login</button>
+			<button>Login</button>
 		</div>
 	</div>
 </form>

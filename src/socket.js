@@ -13,7 +13,10 @@ export function connectSocket(url){
 
         if (data.op === "ERR") {
             const event = new CustomEvent("ERR", {
-                detail: data.value
+                detail: {
+                    title: data.target,
+                    message: data.value
+                }
             })
 
             window.dispatchEvent(event)

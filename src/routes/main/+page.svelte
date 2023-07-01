@@ -3,7 +3,7 @@
 	import { goto } from "$app/navigation";
 	import {host, host_config} from '/src/stores';
 	import Loader from "./Loader.svelte";
-	import Error from "../Error/Error.svelte";
+	import Error from "../Error/ErrorContainer.svelte";
 	
 	let styles = [];
 
