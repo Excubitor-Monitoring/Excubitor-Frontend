@@ -28,7 +28,8 @@
 					username: username,
 					password: password
 				}
-			})
+			}),
+			signal: AbortSignal.timeout(2000)
 		}).catch(() => {
 			const event = new CustomEvent("ERR", {
 				detail: {
@@ -46,7 +47,9 @@
 			access_token.set(json.access_token);
 			refresh_token.set(json.refresh_token);
 
-			fetch(`${$host}/info`)
+			fetch(`${$host}/info`, {
+				signal: AbortSignal.timeout(2000)
+			})
 				.then((res) => res.json())
 				.then((h_config) => {
 					console.log(h_config);
