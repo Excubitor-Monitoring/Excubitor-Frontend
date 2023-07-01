@@ -7,11 +7,12 @@
 	import { dev } from '$app/environment';
 
 	import { env } from '$env/dynamic/public';
+	import Error from "./Error/Error.svelte";
 
-	let hostVal = env.PUBLIC_HOSTVAL == undefined ? '' : env.PUBLIC_HOSTVAL;
+	let hostVal = env.PUBLIC_HOSTVAL === undefined ? '' : env.PUBLIC_HOSTVAL;
 	let ssl = true;
-	let username = env.PUBLIC_USERNAME == undefined ? '' : env.PUBLIC_USERNAME;
-	let password = env.PUBLIC_PASSWORD == undefined ? '' : env.PUBLIC_PASSWORD;
+	let username = env.PUBLIC_USERNAME === undefined ? '' : env.PUBLIC_USERNAME;
+	let password = env.PUBLIC_PASSWORD === undefined ? '' : env.PUBLIC_PASSWORD;
 
 	async function submit() {
 
@@ -29,7 +30,7 @@
 			})
 		});
 
-		if (auth.status == 200) {
+		if (auth.status === 200) {
 			const json = await auth.json();
 
 			access_token.set(json.access_token);
@@ -48,6 +49,16 @@
 					else connectSocket(`ws://${hostVal}/ws?token=${json.access_token}`)
 				})
 				.then(() => goto(`/main`));
+		} else {
+			const error = await auth.json();
+
+			if (error?.message) {
+				const event = new CustomEvent("ERR", {
+					detail: error.message
+				})
+
+				window.dispatchEvent(event)
+			}
 		}
 	}
 </script>
@@ -73,6 +84,8 @@
 		</div>
 	</div>
 </form>
+
+<Error />
 
 <style type="postcss">
 	.login-container {
