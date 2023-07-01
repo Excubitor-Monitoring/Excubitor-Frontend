@@ -29,18 +29,18 @@
 					password: password
 				}
 			})
-		}).catch(err => {
+		}).catch(() => {
 			const event = new CustomEvent("ERR", {
 				detail: {
 					title: "Error on requesting authentication:",
-					message: err
+					message: "Host unreachable!"
 				}
 			})
 
 			window.dispatchEvent(event)
 		});
 
-		if (auth.status === 200) {
+		if (auth?.ok) {
 			const json = await auth.json();
 
 			access_token.set(json.access_token);
@@ -75,18 +75,22 @@
 					window.dispatchEvent(event)
 				});
 		} else {
-			const error = await auth.json();
+			if (auth) {
+				const error = await auth.json();
 
-			if (error?.message) {
-				const event = new CustomEvent("ERR", {
-					detail: {
-						title: "Error on authentication:",
-						message: error.message
-					}
-				})
+				if (error?.message) {
+					const event = new CustomEvent("ERR", {
+						detail: {
+							title: "Error on authentication:",
+							message: error.message
+						}
+					})
 
-				window.dispatchEvent(event)
+					window.dispatchEvent(event)
+				}
 			}
+
+
 		}
 	}
 </script>
