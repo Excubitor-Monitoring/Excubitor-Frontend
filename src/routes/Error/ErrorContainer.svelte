@@ -1,20 +1,20 @@
 <script>
-    import ErrorDisplay from "./ErrorDisplay.svelte";
+	import ErrorDisplay from './ErrorDisplay.svelte';
 
-    let container;
+	let container;
 
-    window.addEventListener("ERR", event => {
-        new ErrorDisplay({
-            target: container,
-            props: {...event.detail}
-        })
-    })
+	window.addEventListener('ERR', (event) => {
+		new ErrorDisplay({
+			target: container,
+			props: { ...event.detail }
+		});
+	});
 </script>
 
-<div class="errorContainer" bind:this={container}></div>
+<div class="errorContainer" bind:this={container} />
 
 <style>
-    .errorContainer {
-        @apply flex flex-col gap-5 fixed bottom-10 right-10 p-5;
-    }
+	.errorContainer {
+		@apply flex flex-col gap-5 fixed bottom-10 right-10 p-5;
+	}
 </style>

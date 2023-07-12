@@ -5,7 +5,7 @@
 	import { connectSocket } from '/src/socket.js';
 
 	import { env } from '$env/dynamic/public';
-	import Error from "./Error/ErrorContainer.svelte";
+	import Error from './Error/ErrorContainer.svelte';
 
 	let hostVal = env.PUBLIC_HOSTVAL === undefined ? '' : env.PUBLIC_HOSTVAL;
 	let ssl = true;
@@ -13,12 +13,11 @@
 	let password = env.PUBLIC_PASSWORD === undefined ? '' : env.PUBLIC_PASSWORD;
 
 	async function submit() {
+		if (ssl) host.set(`https://${hostVal}`);
+		else host.set(`http://${hostVal}`);
 
-		if(ssl) host.set(`https://${hostVal}`)
-		else host.set(`http://${hostVal}`)
-
-		const authURL = new URL($host)
-		authURL.pathname = "auth"
+		const authURL = new URL($host);
+		authURL.pathname = 'auth';
 
 		let auth = await fetch(authURL, {
 			method: 'POST',
@@ -31,14 +30,14 @@
 			}),
 			signal: AbortSignal.timeout(2000)
 		}).catch(() => {
-			const event = new CustomEvent("ERR", {
+			const event = new CustomEvent('ERR', {
 				detail: {
-					title: "Error on requesting authentication:",
-					message: "Host unreachable!"
+					title: 'Error on requesting authentication:',
+					message: 'Host unreachable!'
 				}
-			})
+			});
 
-			window.dispatchEvent(event)
+			window.dispatchEvent(event);
 		});
 
 		if (auth?.ok) {
@@ -53,47 +52,47 @@
 				.then((res) => res.json())
 				.then((h_config) => {
 					console.log(h_config);
-					h_config.modules = h_config.modules.filter((module) => module.components?.length > 0).sort((a, b) => a.name > b.name );
+					h_config.modules = h_config.modules
+						.filter((module) => module.components?.length > 0)
+						.sort((a, b) => a.name > b.name);
 					host_config.set(h_config);
 				})
 				.then(() => current_plugin.set($host_config.modules[0].components[0]))
 				.then(() => {
-					const url = new URL("ws://localhost");
+					const url = new URL('ws://localhost');
 					url.host = hostVal;
-					url.pathname = "ws";
-					url.searchParams.set("token", json.access_token);
-					ssl ? url.protocol = "wss" : url.protocol = "ws";
+					url.pathname = 'ws';
+					url.searchParams.set('token', json.access_token);
+					ssl ? (url.protocol = 'wss') : (url.protocol = 'ws');
 
-					connectSocket(url)
+					connectSocket(url);
 				})
 				.then(() => goto(`/main`))
-				.catch(err => {
-					const event = new CustomEvent("ERR", {
+				.catch((err) => {
+					const event = new CustomEvent('ERR', {
 						detail: {
-							title: "Error on fetching info:",
+							title: 'Error on fetching info:',
 							message: err
 						}
-					})
+					});
 
-					window.dispatchEvent(event)
+					window.dispatchEvent(event);
 				});
 		} else {
 			if (auth) {
 				const error = await auth.json();
 
 				if (error?.message) {
-					const event = new CustomEvent("ERR", {
+					const event = new CustomEvent('ERR', {
 						detail: {
-							title: "Error on authentication:",
+							title: 'Error on authentication:',
 							message: error.message
 						}
-					})
+					});
 
-					window.dispatchEvent(event)
+					window.dispatchEvent(event);
 				}
 			}
-
-
 		}
 	}
 </script>
@@ -109,7 +108,7 @@
 				</div>
 				<div class="flex flex-col basis-2/12">
 					<label for="ssl">HTTPS</label>
-					<input id="ssl" type="checkbox" class="w-5 h-5 m-auto" bind:checked={ssl}>
+					<input id="ssl" type="checkbox" class="w-5 h-5 m-auto" bind:checked={ssl} />
 				</div>
 			</div>
 			<div class="w-full">
