@@ -10,10 +10,22 @@ export function connectSocket(url){
     socket.addEventListener("message", (socketEvent) => {
 
         const data = JSON.parse(socketEvent.data);
-        const event = new CustomEvent(data.target, {
-            detail: JSON.parse(data.value)
-        })
-        window.dispatchEvent(event);
+
+        if (data.op === "ERR") {
+            const event = new CustomEvent("ERR", {
+                detail: {
+                    title: data.target,
+                    message: data.value
+                }
+            })
+
+            window.dispatchEvent(event)
+        } else {
+            const event = new CustomEvent(data.target, {
+                detail: JSON.parse(data.value)
+            })
+            window.dispatchEvent(event);
+        }
     });
 
     window.addEventListener("SUB2SOCKET", (event) => {
