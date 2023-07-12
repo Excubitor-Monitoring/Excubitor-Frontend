@@ -9,7 +9,7 @@
 	import { env } from '$env/dynamic/public';
 
 	let hostVal = env.PUBLIC_HOSTVAL == undefined ? '' : env.PUBLIC_HOSTVAL;
-	let ssl;
+	let ssl = true;
 	let username = env.PUBLIC_USERNAME == undefined ? '' : env.PUBLIC_USERNAME;
 	let password = env.PUBLIC_PASSWORD == undefined ? '' : env.PUBLIC_PASSWORD;
 
@@ -56,10 +56,15 @@
 	<div class="login-container">
 		<div class="login-box">
 			<h1>Login to Excubitor</h1>
-			<div class="w-full">
-				<label for="host">Host</label>
-				<input type="text" placeholder="localhost" id="host" bind:value={hostVal} />
-				<div class="flex justify-between w-full"> <label>HTTPS</label> <input type="checkbox" class=" max-w-min" bind:checked={ssl}> </div>
+			<div class="w-full flex flex-row gap-5">
+				<div class="flex flex-col basis-10/12">
+					<label for="host">Host</label>
+					<input type="text" placeholder="localhost" id="host" bind:value={hostVal} />
+				</div>
+				<div class="flex flex-col basis-2/12">
+					<label for="ssl">HTTPS</label>
+					<input id="ssl" type="checkbox" class="w-5 h-5 m-auto" bind:checked={ssl}>
+				</div>
 			</div>
 			<div class="w-full">
 				<label for="username">Username</label>

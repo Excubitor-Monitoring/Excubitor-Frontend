@@ -7,7 +7,16 @@
 
 <div class="w-full">
     <div class="category" on:click={() => expanded = !expanded}>
-        <div class="flex justify-between w-full"> <div><h2>{module.name}</h2></div> <div>ᐯ</div> </div>
+        <div class="flex justify-between w-full"> 
+            <div><h2>{module.name}</h2></div> 
+            <div>
+                {#if expanded}
+                    ˄
+                {:else}
+                    ˅
+                {/if}
+            </div>
+        </div>
     </div>
 	<div class="">
 		{#if expanded}

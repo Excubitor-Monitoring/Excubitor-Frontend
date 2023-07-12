@@ -3,15 +3,21 @@
 	import { page } from "$app/stores";
 	import Sidebar from "./Sidebar/Sidebar.svelte";
 	import { host_config, current_plugin } from "/src/stores";
+	import { browser } from '$app/environment';
+	import { host } from "../../stores";
+	import { goto } from "$app/navigation";
 
 	let component_container;
 
 	$:{
-		const child = document.createElement($current_plugin.tag);
-		//child.style = "min-height: 100%; min-width: 100%;"
-		if(component_container) component_container.innerHTML = '';
-		component_container?.appendChild(child);
+		if(browser){
+			const child = document.createElement($current_plugin.tag);
+			//child.style = "min-height: 100%; min-width: 100%;"
+			if(component_container) component_container.innerHTML = '';
+			component_container?.appendChild(child);
+		}
 	}
+
 </script>
 
 <div class="container">

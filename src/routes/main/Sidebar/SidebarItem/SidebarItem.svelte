@@ -3,7 +3,9 @@
 	import { unsubAll } from "../../../../socket";
 	import { current_plugin } from "../../../../stores";
 
-    export let component; 
+    export let component;
+
+    let marked = false;
 
     function click(){
 
@@ -13,11 +15,24 @@
         }
         
     }
+
+    $: {
+        if($current_plugin == component) marked = true;
+        else marked = false;
+    }
+
 </script>
 
-<div class="sidebarItem" on:click={click}>
-    {component.tab_name}
-</div>
+{#if marked}
+    <div class="sidebarItem border-2 border-cyan-200" on:click={click}>
+        {component.tab_name}
+    </div>
+{:else}
+    <div class="sidebarItem" on:click={click}>
+        {component.tab_name}
+    </div>
+{/if}
+
 
 <style type="postcss">
     .sidebarItem{

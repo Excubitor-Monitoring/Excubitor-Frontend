@@ -6,8 +6,8 @@
 	
 	let styles = [];
 
-	onMount(() => {
-		if(!$host) goto("/Login");
+	$:{
+		if($host == null) goto("/");
 		else{
 			$host_config.modules.forEach(module => {
 				module.components.forEach(component => {
@@ -16,8 +16,10 @@
 			});
 
 		}
-	});
+	}
 	
 </script>
 
-<Loader/>
+{#if $host != null}
+	<Loader/>
+{/if}
