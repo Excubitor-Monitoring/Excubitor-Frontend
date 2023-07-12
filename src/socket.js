@@ -82,7 +82,3 @@ export function unsubAll() {
 	});
 	sublist = [];
 }
-
-export function logSocket() {
-	console.log(socket);
-}
